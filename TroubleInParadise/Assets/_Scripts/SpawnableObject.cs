@@ -13,6 +13,8 @@ public class SpawnableObject : MonoBehaviour
     //the distance from the player the object will be.
     public Vector2 distanceFromPlayer = new Vector2(1, 0);
 
+    public string playersTag = "Player";
+
     //Awake function
     void Awake()
     {
@@ -41,7 +43,7 @@ public class SpawnableObject : MonoBehaviour
     //trigger event to check if the player is close enough to the gameobject
     void OnTriggerEnter2D(Collider2D other)
     {
-    if(other.gameObject == GameObject.FindGameObjectWithTag("Player") && other.gameObject != this.gameObject)
+    if(other.gameObject == GameObject.FindGameObjectWithTag(playersTag) && other.gameObject != this.gameObject)
         {
             this.transform.SetParent(other.transform);
             storeParent = other.gameObject;
