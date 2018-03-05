@@ -4,12 +4,8 @@ using UnityEngine;
 
 public class SpawnerController : MonoBehaviour
 {
-    //This is the array of spawners:
-    // - Should be empty gaemObjects or can be solid object depending on the scene.
-    // - Holds the transforms of the locations the spawnable objects spawn in.
-    [Header("Spawners")]
-    [Tooltip("Spawner array")]
-    public GameObject[] Spawners;
+    public GameObject MaxPoint;
+    public GameObject MinPoint;
 
     //Array of Pickups:
     // - holds all pickups that can be spawned.
@@ -33,12 +29,11 @@ public class SpawnerController : MonoBehaviour
         //checks if enough time has passed to spawn in an object
         if (m_counter >= spawnRate)
         {
-            //random digit for the spawn location
-            int selectedPoint = Random.Range(0, Spawners.Length);
-            //random digit for drop picking
+            int rand = Random.Range((int)MinPoint.transform.position.x, (int)MaxPoint.transform.position.x);
+            Vector3 spawnLocation = new Vector3(rand, this.transform.position.y, this.transform.position.z);
             int randDrop = Random.Range(0, pickupArray.Length);
             //creates the spawnable object in the scene
-            Instantiate(pickupArray[randDrop], Spawners[selectedPoint].transform);
+            Instantiate(pickupArray[randDrop], spawnLocation, Quaternion.identity);
             //resets counetr
             m_counter = 0.0f;
         }
