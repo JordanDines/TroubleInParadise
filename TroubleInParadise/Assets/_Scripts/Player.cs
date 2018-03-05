@@ -23,64 +23,92 @@ public class Player : MonoBehaviour
     //0: left
     //1: right
     private int side;
+    private int hasParachute;
+    private int lockControls;
+
     private Vector2 leftForce;
     private Vector2 rightForce;
     private Vector2 upForce;
     private Vector2 downForce;
-    
-	// Use this for initialization
-	void Start ()
+
+    private KeyCode left;
+    private KeyCode right;
+    private KeyCode up;
+    private KeyCode down;
+
+    // Use this for initialization
+    void Start ()
     {
         leftForce = new Vector2(-xMovementForce, 0.0f);
         rightForce = new Vector2(xMovementForce, 0.0f);
         upForce = new Vector2(0.0f, maxYVelocity);
         downForce = new Vector2(0.0f, -maxYVelocity);
+
+        lockControls = 0;
+
+        if(playerNum == 1)
+        {
+            left = KeyCode.A;
+            right = KeyCode.D;
+            up = KeyCode.W;
+            down = KeyCode.S;
+        }
+        else if(playerNum == 2)
+        {
+            left = KeyCode.LeftArrow;
+            right = KeyCode.RightArrow;
+            up = KeyCode.UpArrow;
+            down = KeyCode.DownArrow;
+        }
 	}
 	
 	// Update is called once per frame
 	void Update ()
     {
-        //Sets the side and direction of collider and player
-		if(Input.GetKeyDown(KeyCode.LeftArrow))
+        if (lockControls == 0)
         {
-            //sets the side to left
-            side = 0;
-            ChangeSides();
-        }
-        else if(Input.GetKeyDown(KeyCode.RightArrow))
-        {
-            //sets the side to right
-            side = 1;
-            ChangeSides();
-        }
+            //Sets the side and direction of collider and player
+            if (Input.GetKeyDown(left))
+            {
+                //sets the side to left
+                side = -1;
+                ChangeSides();
+            }
+            else if (Input.GetKeyDown(right))
+            {
+                //sets the side to right
+                side = 1;
+                ChangeSides();
+            }
 
-        //For movement
-        if(Input.GetKey(KeyCode.LeftArrow))
-        {
-            if (rigid.velocity.x >= -maxXVelocity)
+            //For movement
+            if (Input.GetKey(left))
             {
-                rigid.AddForce(leftForce);
+                if (rigid.velocity.x >= -maxXVelocity)
+                {
+                    rigid.AddForce(leftForce);
+                }
             }
-        }
-        else if(Input.GetKey(KeyCode.RightArrow))
-        {
-            if (rigid.velocity.x <= maxXVelocity)
+            else if (Input.GetKey(right))
             {
-                rigid.AddForce(rightForce);
+                if (rigid.velocity.x <= maxXVelocity)
+                {
+                    rigid.AddForce(rightForce);
+                }
             }
-        }
-        if(Input.GetKey(KeyCode.UpArrow))
-        {
-            if(rigid.velocity.y <= maxYVelocity)
+            if (Input.GetKey(up))
             {
-                rigid.AddForce(upForce);
+                if (rigid.velocity.y <= maxYVelocity)
+                {
+                    rigid.AddForce(upForce);
+                }
             }
-        }
-        else if(Input.GetKey(KeyCode.DownArrow))
-        {
-            if(rigid.velocity.y >= -maxYVelocity)
+            else if (Input.GetKey(down))
             {
-                rigid.AddForce(downForce);
+                if (rigid.velocity.y >= -maxYVelocity)
+                {
+                    rigid.AddForce(downForce);
+                }
             }
         }
 
