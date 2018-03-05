@@ -21,6 +21,8 @@ public class Player : MonoBehaviour
     [Header("The maximum x and y velocity in both direction")]
     [SerializeField] float maxXVelocity;
     [SerializeField] float maxYVelocity;
+    [Header("The amount of force applied on contact")]
+    [SerializeField] float contactForceAmount;
 
     //0: left
     //1: right
@@ -143,9 +145,28 @@ public class Player : MonoBehaviour
     {
         return side;
     }
-    public void LockControls()
+    public void LockControls(float fallvalue)
     {
         lockControls = 1;
-        rigid.velocity = new Vector2(0.0f, rigid.velocity.y);
+        if (hasParachute == 1)
+        {
+            rigid.velocity = new Vector2(0.0f, -fallvalue);
+        }
+        else if(hasParachute == 0)
+        {
+            rigid.velocity = new Vector2(0.0f, -fallvalue);
+        }
     }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if(collision.gameObject.tag == "Player")
+        {
+            Vector2 collisionDirection = collision.contacts[0].point - (Vector2)this.transform.position;
+            collisionDirection = -collisionDirection.normalized;
+
+            rigid.AddForce(collisionDirection * contactForceAmount, ForceMode2D.Impulse);
+        }
+    }
+ 
 }
