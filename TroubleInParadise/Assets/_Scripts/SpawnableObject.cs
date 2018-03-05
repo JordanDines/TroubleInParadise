@@ -22,7 +22,6 @@ public class SpawnableObject : MonoBehaviour
     {
         //initilises the rigidbody
         rb = this.GetComponent<Rigidbody2D>();
-
     }
 
     //updates the spawnable objects
