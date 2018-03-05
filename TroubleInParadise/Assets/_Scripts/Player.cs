@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    [Header("Player Number")]
+    [SerializeField] int playerNum;
     [Header("Players 2D Rigidbody")]
     [SerializeField] Rigidbody2D rigid;
     [Header("Players character object( the objects child)")]
@@ -118,7 +120,7 @@ public class Player : MonoBehaviour
     {
         float yOffset = attackSideCollider.offset.y;
         //Left side
-        if(side == 0)
+        if(side == -1)
         {
             //sets the collider x offset to the corrisponding value
             attackSideCollider.offset = new Vector2(xOffset2, yOffset);
@@ -131,5 +133,19 @@ public class Player : MonoBehaviour
             attackSideCollider.offset = new Vector2(xOffset1, yOffset);
             //Change the direction of the player assets here
         }
+    }
+    
+    public int HasParachute()
+    {
+        return hasParachute;
+    }
+    public int GetDirection()
+    {
+        return side;
+    }
+    public void LockControls()
+    {
+        lockControls = 1;
+        rigid.velocity = new Vector2(0.0f, rigid.velocity.y);
     }
 }
