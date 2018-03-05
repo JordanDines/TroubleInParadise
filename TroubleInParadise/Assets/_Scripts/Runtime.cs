@@ -12,6 +12,8 @@ public class Runtime : MonoBehaviour
     [Header("The fall speed difference between having parachute and without")]
     [SerializeField] float fallSpeedWithoutParachute;
     [SerializeField] float fallSpeedWithParachute;
+    [Header("The bottom collision box which should disappear")]
+    [SerializeField] BoxCollider2D bottomBoxCollider;
 
     private float gameTime = 0.0f;
 
@@ -65,7 +67,7 @@ public class Runtime : MonoBehaviour
                 player2.LockControls(fallSpeedWithParachute);
             }
 
-
+            bottomBoxCollider.enabled = false;
             gameOver = 1;
         }
         if(gameOver == 1)
