@@ -15,10 +15,19 @@ public class Attack : MonoBehaviour
         timer += Time.deltaTime;
         if (timer >= TimeBetweenAttacks)
         {
-            if (Input.GetKey(KeyCode.Space))
-            {
-                attack();
-            }
+            //if (this.GetComponent<Player>().playerNum == 1) {
+                if (Input.GetKey(KeyCode.Space))
+                {
+                    attack();
+                }
+                //if (this.GetComponent<Player>().playerNum == 2)
+                //{
+                //    if (Input.GetKey(KeyCode.LeftShift))
+                //    {
+                //        attack();
+                //    }
+                //}
+            //}
         }
     }
 
