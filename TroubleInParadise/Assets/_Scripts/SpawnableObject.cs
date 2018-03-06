@@ -11,6 +11,7 @@ public class SpawnableObject : MonoBehaviour
 
 
     public BoxCollider2D externalCollider = null;
+
     public string playersTag = "Player";
 
     //Awake function
