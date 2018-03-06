@@ -290,7 +290,10 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4003246976470652}
+  - component: {fileID: 114563711598783584}
   - component: {fileID: 114253153103650524}
+  - component: {fileID: 114179745702430088}
+  - component: {fileID: 114640327488056796}
   - component: {fileID: 50201620067992210}
   - component: {fileID: 61052718372062106}
   - component: {fileID: 61959796022578202}
@@ -1079,7 +1082,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1274413696652274}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -1.05, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4245085315869116}
@@ -2190,7 +2193,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.74, y: 0}
+  m_Offset: {x: 0.74, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -2237,6 +2240,21 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &114179745702430088
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1274413696652274}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 376d6302fbf3c9e4eac35128fd50bbf1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  controls: {fileID: 114563711598783584}
+  TimeBetweenAttacks: 0.5
+  slapForce: 10
+  playerTag: Player
 --- !u!114 &114253153103650524
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2249,18 +2267,52 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rigid: {fileID: 50201620067992210}
-  withoutParachute: {fileID: 0}
-  withParachute: {fileID: 0}
+  withoutParachute: {fileID: 1618557229513120}
+  withParachute: {fileID: 1356766841008082}
   attackSideCollider: {fileID: 61052718372062106}
   xMovementForce: 5
   yMovementForce: 5
   maxXVelocity: 5
   maxYVelocity: 5
-  contactForceAmount: 0
-  weaponTag: 
+  contactForceAmount: 1
+  weaponTag: Weapon
   cooldownPickup: 5
   forceNum: 10
-  controls: {fileID: 0}
+  controls: {fileID: 114563711598783584}
+--- !u!114 &114563711598783584
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1274413696652274}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3cbab965cc1712542b94856b7647e411, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerNum: 2
+  left: 0
+  right: 0
+  up: 0
+  down: 0
+  attack: 0
+  controller: 0
+  hasController: 0
+--- !u!114 &114640327488056796
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1274413696652274}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 05a4f36eff7146d4ba9ee0d22563c043, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attackBox: {fileID: 61959796022578202}
+  modificationFactor: 1
+  pickupObjectTag: Weapon
+  IsHolding: 0
 --- !u!137 &137128367308751460
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1

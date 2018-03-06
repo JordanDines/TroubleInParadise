@@ -2193,7 +2193,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.74, y: 0}
+  m_Offset: {x: 0.74, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -2248,7 +2248,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1669176951914498}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 780d746d6e2a1754587c3cf6db57fd8f, type: 3}
+  m_Script: {fileID: 11500000, guid: 3cbab965cc1712542b94856b7647e411, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   playerNum: 1
@@ -2267,11 +2267,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 1669176951914498}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7a3cce16ad40ace4ca2dd85c93efcce1, type: 3}
+  m_Script: {fileID: 11500000, guid: 376d6302fbf3c9e4eac35128fd50bbf1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   controls: {fileID: 114178345222198690}
   TimeBetweenAttacks: 0.5
+  slapForce: 10
   playerTag: Player
 --- !u!114 &114389475942483598
 MonoBehaviour:
@@ -2281,12 +2282,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 1669176951914498}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b1d06c9ec8c07324296b2c2e218d1701, type: 3}
+  m_Script: {fileID: 11500000, guid: 05a4f36eff7146d4ba9ee0d22563c043, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   attackBox: {fileID: 61676761466536506}
   modificationFactor: 1
-  pickupObjectTag: Pickup
+  pickupObjectTag: Weapon
   IsHolding: 0
 --- !u!114 &114563568512113842
 MonoBehaviour:
@@ -2307,9 +2308,9 @@ MonoBehaviour:
   yMovementForce: 5
   maxXVelocity: 5
   maxYVelocity: 5
-  contactForceAmount: 0
-  weaponTag: 
-  cooldownPickup: 5
+  contactForceAmount: 1
+  weaponTag: Weapon
+  cooldownPickup: 1
   forceNum: 10
   controls: {fileID: 114178345222198690}
 --- !u!137 &137152215405490260
