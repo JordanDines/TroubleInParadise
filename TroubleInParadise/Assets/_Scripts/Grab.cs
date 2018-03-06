@@ -9,8 +9,8 @@ public class Grab : MonoBehaviour
     public float modificationFactor = 1;
 
     public string pickupObjectTag = "Pickup";
-    public GameObject heldOBJ = null;
-
+    GameObject heldOBJ = null;
+    [HideInInspector]
     public bool IsHolding = false;
 
     void Awake()
@@ -37,5 +37,12 @@ public class Grab : MonoBehaviour
                IsHolding = true;
             }
         }
+    }
+
+    public void releaseOBJ()
+    {
+        this.GetComponentInChildren<SpawnableObject>().setIsheld(false);
+        heldOBJ.transform.parent = null;
+        IsHolding = false;
     }
 }
