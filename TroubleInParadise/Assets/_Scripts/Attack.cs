@@ -1,28 +1,29 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using XboxCtrlrInput;
 
 public class Attack : MonoBehaviour
 {
+    [SerializeField] Controls controls;
+
     public float TimeBetweenAttacks = 0.5f;
+    private GameObject player;
     float timer = 0.0f;
 
     public string playerTag = "Player";
-    bool playerInRange = false;
+    bool playerInRange = false; 
 
     void Update()
     {
         timer += Time.deltaTime;
         if (timer >= TimeBetweenAttacks)
         {
-
-            if (Input.GetKey(KeyCode.Space))
+            if (Input.GetKey(controls.attack))
             {
                 attack();
             }
         }
-}
+    }
 
     void attack()
     {
@@ -33,8 +34,8 @@ public class Attack : MonoBehaviour
                 //knock parachute out of other player, nudge them back
                 this.GetComponent<Grab>().releaseOBJ();
 
-                if (this.GetComponent<Player>().HasParachute() == 1)
-                    this.GetComponent<Player>().Hit();
+                if (player.GetComponent<Player>().HasParachute() == 1)
+                    player.GetComponent<Player>().Hit();
             }
         }
     }
@@ -43,6 +44,7 @@ public class Attack : MonoBehaviour
     {
         if(collision.gameObject.tag == playerTag && collision.gameObject != this)
         {
+            player = collision.gameObject;
             playerInRange = true;
         }
         else
