@@ -130,7 +130,7 @@ public class Runtime : MonoBehaviour
     //Updates the current percentage
     public void slidervalue()
     {
-		fallingslider.value = (gameTime/totalFallTime)  % 100;
+		fallingslider.value = (gameTime/totalFallTime) % 100;
         firstVal();
         secondVal();
         thirdVal();
@@ -144,7 +144,7 @@ public class Runtime : MonoBehaviour
     {
 		if (fallingslider.value >= firstPointPercent && fallingslider.value <= secondPointPercent)
         {
-			sliderHeadSprite.GetComponent<SpriteRenderer>().sprite = firstSprite;
+			sliderHeadSprite.GetComponent<Image>().sprite = firstSprite;
         }
     }
     //second value effect
@@ -152,7 +152,7 @@ public class Runtime : MonoBehaviour
     {
 		if (fallingslider.value >= secondPointPercent && fallingslider.value < thirdPointPercent)
         {
-			sliderHeadSprite.GetComponent<SpriteRenderer>().sprite = secondSprite;
+			sliderHeadSprite.GetComponent<Image>().sprite = secondSprite;
         }
     }
     //third value effect
@@ -160,7 +160,7 @@ public class Runtime : MonoBehaviour
     {
         if (fallingslider.value >= thirdPointPercent)
         {
-			sliderHeadSprite.GetComponent<SpriteRenderer>().sprite = thirdSprite;
+			sliderHeadSprite.GetComponent<Image>().sprite = thirdSprite;
         }
     }
 	//Handles the Game Over Text
