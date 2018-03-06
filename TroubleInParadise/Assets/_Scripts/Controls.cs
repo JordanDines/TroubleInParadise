@@ -17,20 +17,21 @@ public class Controls : MonoBehaviour
     private void Awake()
     {
        if(playerNum == 1)
-        {
-            left = KeyCode.A;
-            right = KeyCode.D;
-            up = KeyCode.W;
-            down = KeyCode.S;
+       {
+           left = KeyCode.A;
+           right = KeyCode.D;
+           up = KeyCode.W;
+           down = KeyCode.S;
 
-            attack = KeyCode.Space;
+           attack = KeyCode.Space;
 
-            if (XboxCtrlrInput.XCI.IsPluggedIn(1))
-            {
-                controller = XboxCtrlrInput.XboxController.First;
-                hasController = true;
-            }
-        }
+           if (XboxCtrlrInput.XCI.IsPluggedIn(1))
+           {
+               controller = XboxCtrlrInput.XboxController.First;
+               hasController = true;
+           }
+       }
+
        if(playerNum == 2)
         {
             left = KeyCode.LeftArrow;

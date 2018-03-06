@@ -2272,7 +2272,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   controls: {fileID: 114178345222198690}
   TimeBetweenAttacks: 0.5
-  slapForce: 10
+  slapForce: 30
   playerTag: Player
 --- !u!114 &114389475942483598
 MonoBehaviour:
@@ -2308,7 +2308,7 @@ MonoBehaviour:
   yMovementForce: 5
   maxXVelocity: 5
   maxYVelocity: 5
-  contactForceAmount: 1
+  contactForceAmount: 1.5
   weaponTag: Weapon
   cooldownPickup: 1
   forceNum: 10

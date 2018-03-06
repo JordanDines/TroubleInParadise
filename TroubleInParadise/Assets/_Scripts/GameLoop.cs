@@ -5,25 +5,30 @@ using UnityEngine.SceneManagement;
 
 public class GameLoop : MonoBehaviour
 {
-    public string mainScene = "_MainScene";
-    public string startScene = "GameScene";
-    public string endScene = "EndScene";
+    public string gameScene = "_GameScene";
+    public string menuScene = "_MenuScene";
+
+	void Awake () {
+		DontDestroyOnLoad (transform.gameObject);
+	}
 
     //goes to the mian game scene
     public void GoToGameScene()
     {
-        SceneManager.LoadScene(mainScene);
+        SceneManager.LoadScene(gameScene);
     }
     
     //ending scene
-    public void GoToStartScene()
+    public void GoToMenuScene()
     {
-        SceneManager.LoadScene(startScene);
+        SceneManager.LoadScene(menuScene);
     }
 
-    //start scene
-    public void GoToEndScene()
-    {
-        SceneManager.LoadScene(endScene);
-    }
+	public void QuitGame () {
+		#if UNITY_EDITOR
+		UnityEditor.EditorApplication.isPlaying = false;
+		#else
+		Application.Quit();
+		#endif
+	}
 }

@@ -15,6 +15,7 @@ public class Grab : MonoBehaviour
 
     void Awake()
     {
+		
     }
     void Update()
     {
