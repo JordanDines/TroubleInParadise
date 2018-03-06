@@ -5,8 +5,6 @@ using XInputDotNetPure;
 
 public class Player : MonoBehaviour
 {
-    [Header("Player Number")]
-    [SerializeField] int playerNum;
     [Header("Players 2D Rigidbody")]
     [SerializeField] Rigidbody2D rigid;
     [Header("Players character object( the objects child)")]
@@ -28,6 +26,7 @@ public class Player : MonoBehaviour
     [SerializeField] float cooldownPickup = 5.0f;
     [Header("The amount of force that the parachute needs to be pushed by")]
     [SerializeField] float forceNum = 10.0f;
+    [SerializeField] Controls controls;
 
     //0: left
     //1: right
@@ -43,17 +42,8 @@ public class Player : MonoBehaviour
 
     private float timer = 0.0f;
 
-    private KeyCode left;
-    private KeyCode right;
-    private KeyCode up;
-    private KeyCode down;
-
-    private XboxCtrlrInput.XboxController controller;
-
-    private bool hasController = false;
     private bool leftRotated = false;
     private bool rightRotated = false;
-    private bool droppedParachute = false;
 
     private GameObject parachuteRefrence;
     // Use this for initialization
@@ -67,65 +57,29 @@ public class Player : MonoBehaviour
         downForce = new Vector2(0.0f, -maxYVelocity);
 
         lockControls = 0;
-
-        if(playerNum == 1)
-        {
-            left = KeyCode.A;
-            right = KeyCode.D;
-            up = KeyCode.W;
-            down = KeyCode.S;
-
-            if (XboxCtrlrInput.XCI.IsPluggedIn(1))
-            {
-                controller = XboxCtrlrInput.XboxController.First;
-                hasController = true;
-            }
-        }
-        else if(playerNum == 2)
-        {
-            left = KeyCode.LeftArrow;
-            right = KeyCode.RightArrow;
-            up = KeyCode.UpArrow;
-            down = KeyCode.DownArrow;
-
-            if (XboxCtrlrInput.XCI.IsPluggedIn(2))
-            {
-                controller = XboxCtrlrInput.XboxController.Second;
-                hasController = true;
-            }
-        }
 	}
 	
 	// Update is called once per frame
 	void Update ()
     {
-        if(droppedParachute)
-        {
-            timer += Time.deltaTime;
-            if(timer >= cooldownPickup)
-            {
-                droppedParachute = false;
-                timer = 0.0f;
-            }
-        }
         if (lockControls == 0)
         {
             //Sets the side and direction of collider and player
-            if (Input.GetKeyDown(left))
+            if (Input.GetKeyDown(controls.left))
             {
                 //sets the side to left
                 side = -1;
                 ChangeSides();
             }
-            else if (Input.GetKeyDown(right))
+            else if (Input.GetKeyDown(controls.right))
             {
                 //sets the side to right
                 side = 1;
                 ChangeSides();
             }
-            if (hasController)
+            if (controls.hasController)
             {
-                if (XboxCtrlrInput.XCI.GetAxisRaw(XboxCtrlrInput.XboxAxis.LeftStickX, controller) < 0.0f)
+                if (XboxCtrlrInput.XCI.GetAxisRaw(XboxCtrlrInput.XboxAxis.LeftStickX, controls.controller) < 0.0f)
                 {
                     if (!leftRotated)
                     {
@@ -139,7 +93,7 @@ public class Player : MonoBehaviour
                         rigid.AddForce(leftForce);
                     }
                 }
-                else if (XboxCtrlrInput.XCI.GetAxisRaw(XboxCtrlrInput.XboxAxis.LeftStickX, controller) > 0.0f)
+                else if (XboxCtrlrInput.XCI.GetAxisRaw(XboxCtrlrInput.XboxAxis.LeftStickX, controls.controller) > 0.0f)
                 {
                     if (!rightRotated)
                     {
@@ -153,14 +107,14 @@ public class Player : MonoBehaviour
                         rigid.AddForce(rightForce);
                     }
                 }
-                if(XboxCtrlrInput.XCI.GetAxisRaw(XboxCtrlrInput.XboxAxis.LeftStickY, controller) < 0.0f)
+                if(XboxCtrlrInput.XCI.GetAxisRaw(XboxCtrlrInput.XboxAxis.LeftStickY, controls.controller) < 0.0f)
                 {
                     if (rigid.velocity.y >= -maxYVelocity)
                     {
                         rigid.AddForce(downForce);
                     }
                 }
-                else if(XboxCtrlrInput.XCI.GetAxisRaw(XboxCtrlrInput.XboxAxis.LeftStickY, controller) > 0.0f)
+                else if(XboxCtrlrInput.XCI.GetAxisRaw(XboxCtrlrInput.XboxAxis.LeftStickY, controls.controller) > 0.0f)
                 {
                     if (rigid.velocity.y <= maxYVelocity)
                     {
@@ -170,28 +124,28 @@ public class Player : MonoBehaviour
             }
 
             //For movement
-            if (Input.GetKey(left))
+            if (Input.GetKey(controls.left))
             {
                 if (rigid.velocity.x >= -maxXVelocity)
                 {
                     rigid.AddForce(leftForce);
                 }
             }
-            else if (Input.GetKey(right))
+            else if (Input.GetKey(controls.right))
             {
                 if (rigid.velocity.x <= maxXVelocity)
                 {
                     rigid.AddForce(rightForce);
                 }
             }
-            if (Input.GetKey(up))
+            if (Input.GetKey(controls.up))
             {
                 if (rigid.velocity.y <= maxYVelocity)
                 {
                     rigid.AddForce(upForce);
                 }
             }
-            else if (Input.GetKey(down))
+            else if (Input.GetKey(controls.down))
             {
                 if (rigid.velocity.y >= -maxYVelocity)
                 {
@@ -262,16 +216,16 @@ public class Player : MonoBehaviour
 
         parachuteRefrence.SetActive(true);
         parachuteRefrence.transform.position = new Vector3(this.transform.position.x, this.transform.position.y + 0.9f);
+        parachuteRefrence.GetComponent<Parachute>().Dropped();
 
         parachuteRefrence.GetComponent<Rigidbody2D>().AddForce(weaponCollisionDirection * forceNum, ForceMode2D.Impulse);
 
         hasParachute = 0;
-        droppedParachute = true;
         parachuteRefrence = null;
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.tag == "Parachute" && droppedParachute == false)
+        if (collision.gameObject.tag == "Parachute")
         {
             parachuteRefrence = collision.gameObject;
             parachuteRefrence.SetActive(false);
