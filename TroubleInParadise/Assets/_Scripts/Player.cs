@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using XInputDotNetPure;
 
 public class Player : MonoBehaviour
 {
@@ -9,12 +10,10 @@ public class Player : MonoBehaviour
     [Header("Players 2D Rigidbody")]
     [SerializeField] Rigidbody2D rigid;
     [Header("Players character object( the objects child)")]
-    [SerializeField] GameObject visualAssest;
+    [SerializeField] GameObject withoutParachute;
+    [SerializeField] GameObject withParachute;
     [Header("Box Collider 2D for the attacking side")]
     [SerializeField] BoxCollider2D attackSideCollider;
-    [Header("The positive and negative offset for the colliders")]
-    [SerializeField] float xOffset1;
-    [SerializeField] float xOffset2;
     [Header("The amount of force to be applied to the player")]
     [SerializeField] float xMovementForce;
     [SerializeField] float yMovementForce;
@@ -23,6 +22,10 @@ public class Player : MonoBehaviour
     [SerializeField] float maxYVelocity;
     [Header("The amount of force applied on contact")]
     [SerializeField] float contactForceAmount;
+    [Header("Make this the same as the object tag in grab class")]
+    [SerializeField] string weaponTag;
+    [Header("How long between pickups are allowed")]
+    [SerializeField] float cooldownPickup = 5.0f;
 
     //0: left
     //1: right
@@ -34,15 +37,28 @@ public class Player : MonoBehaviour
     private Vector2 rightForce;
     private Vector2 upForce;
     private Vector2 downForce;
+    private Vector2 weaponCollisionDirection;
+
+    private float timer = 0.0f;
 
     private KeyCode left;
     private KeyCode right;
     private KeyCode up;
     private KeyCode down;
 
+    private XboxCtrlrInput.XboxController controller;
+
+    private bool hasController = false;
+    private bool leftRotated = false;
+    private bool rightRotated = false;
+    private bool droppedParachute = false;
+
+    private GameObject parachuteRefrence;
     // Use this for initialization
     void Start ()
     {
+        withParachute.SetActive(false);
+
         leftForce = new Vector2(-xMovementForce, 0.0f);
         rightForce = new Vector2(xMovementForce, 0.0f);
         upForce = new Vector2(0.0f, maxYVelocity);
@@ -56,6 +72,12 @@ public class Player : MonoBehaviour
             right = KeyCode.D;
             up = KeyCode.W;
             down = KeyCode.S;
+
+            if (XboxCtrlrInput.XCI.IsPluggedIn(1))
+            {
+                controller = XboxCtrlrInput.XboxController.First;
+                hasController = true;
+            }
         }
         else if(playerNum == 2)
         {
@@ -63,12 +85,27 @@ public class Player : MonoBehaviour
             right = KeyCode.RightArrow;
             up = KeyCode.UpArrow;
             down = KeyCode.DownArrow;
+
+            if (XboxCtrlrInput.XCI.IsPluggedIn(2))
+            {
+                controller = XboxCtrlrInput.XboxController.Second;
+                hasController = true;
+            }
         }
 	}
 	
 	// Update is called once per frame
 	void Update ()
     {
+        if(droppedParachute)
+        {
+            timer += Time.deltaTime;
+            if(timer >= cooldownPickup)
+            {
+                droppedParachute = false;
+                timer = 0.0f;
+            }
+        }
         if (lockControls == 0)
         {
             //Sets the side and direction of collider and player
@@ -83,6 +120,51 @@ public class Player : MonoBehaviour
                 //sets the side to right
                 side = 1;
                 ChangeSides();
+            }
+            if (hasController)
+            {
+                if (XboxCtrlrInput.XCI.GetAxisRaw(XboxCtrlrInput.XboxAxis.LeftStickX, controller) < 0.0f)
+                {
+                    if (!leftRotated)
+                    {
+                        side = -1;
+                        ChangeSides();
+                        leftRotated = true;
+                        rightRotated = false;
+                    }
+                    if (rigid.velocity.x >= -maxXVelocity)
+                    {
+                        rigid.AddForce(leftForce);
+                    }
+                }
+                else if (XboxCtrlrInput.XCI.GetAxisRaw(XboxCtrlrInput.XboxAxis.LeftStickX, controller) > 0.0f)
+                {
+                    if (!rightRotated)
+                    {
+                        side = 1;
+                        ChangeSides();
+                        leftRotated = false;
+                        rightRotated = true;
+                    }
+                    if (rigid.velocity.x <= maxXVelocity)
+                    {
+                        rigid.AddForce(rightForce);
+                    }
+                }
+                if(XboxCtrlrInput.XCI.GetAxisRaw(XboxCtrlrInput.XboxAxis.LeftStickY, controller) < 0.0f)
+                {
+                    if (rigid.velocity.y >= -maxYVelocity)
+                    {
+                        rigid.AddForce(downForce);
+                    }
+                }
+                else if(XboxCtrlrInput.XCI.GetAxisRaw(XboxCtrlrInput.XboxAxis.LeftStickY, controller) > 0.0f)
+                {
+                    if (rigid.velocity.y <= maxYVelocity)
+                    {
+                        rigid.AddForce(upForce);
+                    }
+                }
             }
 
             //For movement
@@ -124,16 +206,14 @@ public class Player : MonoBehaviour
         //Left side
         if(side == -1)
         {
-            //sets the collider x offset to the corrisponding value
-            attackSideCollider.offset = new Vector2(xOffset2, yOffset);
             //Change the direction of the player assets here
+            this.transform.rotation = Quaternion.Euler(new Vector3(0.0f, 180.0f, 0.0f));
         }
         //Right side
         else if(side == 1)
         {
-            //sets the collider x offset to the corrisponding value
-            attackSideCollider.offset = new Vector2(xOffset1, yOffset);
             //Change the direction of the player assets here
+            this.transform.rotation = Quaternion.Euler(new Vector3(0.0f, 1.0f, 0.0f));
         }
     }
     
@@ -167,6 +247,36 @@ public class Player : MonoBehaviour
 
             rigid.AddForce(collisionDirection * contactForceAmount, ForceMode2D.Impulse);
         }
+        if(collision.gameObject.tag == weaponTag)
+        {
+            weaponCollisionDirection = collision.contacts[0].point - (Vector2)this.transform.position;
+            weaponCollisionDirection = -weaponCollisionDirection.normalized;
+        }
     }
- 
+    public void Hit()
+    {
+        withParachute.SetActive(false);
+        withoutParachute.SetActive(true);
+
+        parachuteRefrence.SetActive(true);
+        parachuteRefrence.transform.position = new Vector3(this.transform.position.x, this.transform.position.y + 0.9f);
+
+        parachuteRefrence.GetComponent<Rigidbody2D>().AddForce(weaponCollisionDirection * 200, ForceMode2D.Force);
+
+        hasParachute = 0;
+        droppedParachute = true;
+        parachuteRefrence = null;
+    }
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if(collision.gameObject.tag == "Parachute" && droppedParachute == false)
+        {
+            parachuteRefrence = collision.gameObject;
+            parachuteRefrence.SetActive(false);
+            hasParachute = 1;
+            withParachute.SetActive(true);
+            withoutParachute.SetActive(false);
+        }
+    }
+
 }
