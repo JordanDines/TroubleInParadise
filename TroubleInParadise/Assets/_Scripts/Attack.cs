@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using XboxCtrlrInput;
 
 public class Attack : MonoBehaviour
 {
@@ -8,28 +9,20 @@ public class Attack : MonoBehaviour
     float timer = 0.0f;
 
     public string playerTag = "Player";
-    bool playerInRange = false; 
+    bool playerInRange = false;
 
     void Update()
     {
         timer += Time.deltaTime;
         if (timer >= TimeBetweenAttacks)
         {
-            //if (this.GetComponent<Player>().playerNum == 1) {
-                if (Input.GetKey(KeyCode.Space))
-                {
-                    attack();
-                }
-                //if (this.GetComponent<Player>().playerNum == 2)
-                //{
-                //    if (Input.GetKey(KeyCode.LeftShift))
-                //    {
-                //        attack();
-                //    }
-                //}
-            //}
+
+            if (Input.GetKey(KeyCode.Space))
+            {
+                attack();
+            }
         }
-    }
+}
 
     void attack()
     {
