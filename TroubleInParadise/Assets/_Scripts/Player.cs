@@ -26,6 +26,8 @@ public class Player : MonoBehaviour
     [SerializeField] string weaponTag;
     [Header("How long between pickups are allowed")]
     [SerializeField] float cooldownPickup = 5.0f;
+    [Header("The amount of force that the parachute needs to be pushed by")]
+    [SerializeField] float forceNum = 10.0f;
 
     //0: left
     //1: right
@@ -261,7 +263,7 @@ public class Player : MonoBehaviour
         parachuteRefrence.SetActive(true);
         parachuteRefrence.transform.position = new Vector3(this.transform.position.x, this.transform.position.y + 0.9f);
 
-        parachuteRefrence.GetComponent<Rigidbody2D>().AddForce(weaponCollisionDirection * 200, ForceMode2D.Force);
+        parachuteRefrence.GetComponent<Rigidbody2D>().AddForce(weaponCollisionDirection * forceNum, ForceMode2D.Impulse);
 
         hasParachute = 0;
         droppedParachute = true;
@@ -269,13 +271,19 @@ public class Player : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.gameObject.tag == "Parachute" && droppedParachute == false)
+        if (collision.gameObject.tag == "Parachute" && droppedParachute == false)
         {
             parachuteRefrence = collision.gameObject;
             parachuteRefrence.SetActive(false);
             hasParachute = 1;
             withParachute.SetActive(true);
             withoutParachute.SetActive(false);
+        }
+
+        if (collision.gameObject.tag == "Player" && this.GetComponent<Grab>().IsHolding)
+        {
+            weaponCollisionDirection = collision.GetComponent<Rigidbody2D>().velocity;
+            weaponCollisionDirection = new Vector2(-weaponCollisionDirection.x, weaponCollisionDirection.y);
         }
     }
 

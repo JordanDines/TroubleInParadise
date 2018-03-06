@@ -29,9 +29,10 @@ public class Attack : MonoBehaviour
             if (this.GetComponent<Grab>().IsHolding)
             {
                 //knock parachute out of other player, nudge them back
-                //Hit();
-
                 this.GetComponent<Grab>().releaseOBJ();
+
+                if (this.GetComponent<Player>().HasParachute() == 1)
+                    this.GetComponent<Player>().Hit();
             }
         }
     }
