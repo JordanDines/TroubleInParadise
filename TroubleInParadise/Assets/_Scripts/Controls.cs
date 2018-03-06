@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Controls : MonoBehaviour
 {
-    [SerializeField] int playerNum;
+	public int playerNum;
 
     public KeyCode left;
     public KeyCode right;

@@ -4,11 +4,13 @@ using UnityEngine;
 
 public class Grab : MonoBehaviour
 {
+
+
     public BoxCollider2D attackBox;
 
     public float modificationFactor = 1;
 
-    public string pickupObjectTag = "Pickup";
+    public string pickupObjectTag = "Weapon";
     GameObject heldOBJ = null;
     [HideInInspector]
     public bool IsHolding = false;
@@ -26,7 +28,11 @@ public class Grab : MonoBehaviour
                 heldOBJ.transform.position = this.transform.position + new Vector3(dir * modificationFactor, 0, 0);
             }
         }
+
+
     }
+
+
     void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.tag == pickupObjectTag && IsHolding == false)

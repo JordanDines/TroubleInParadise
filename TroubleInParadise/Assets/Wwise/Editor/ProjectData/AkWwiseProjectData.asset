@@ -1,0 +1,190 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 84a5d57b8389bfe4db491dfbfecf7112, type: 3}
+  m_Name: AkWwiseProjectData
+  m_EditorClassIdentifier: 
+  AcousticTextureWwu:
+  - Guid: '{CF331D7C-B60C-4F21-B624-E1ED02F23D0D}'
+    m_lastTimePart2: -1999273394
+    m_lastTimePsrt1: -1565387680
+    ParentPhysicalPath: 
+    PhysicalPath: Virtual Acoustics\Default Work Unit.wwu
+    List: []
+  autoPopulateEnabled: 1
+  AuxBusWwu:
+  - Guid: '{2E36953F-E902-4D1F-992B-AC1C139521DD}'
+    m_lastTimePart2: -1999273217
+    m_lastTimePsrt1: 1806252352
+    ParentPhysicalPath: 
+    PhysicalPath: Master-Mixer Hierarchy\Default Work Unit.wwu
+    List: []
+  BankWwu:
+  - Guid: '{C789CB37-DC31-4376-B123-E9357B141E43}'
+    m_lastTimePart2: -1999273220
+    m_lastTimePsrt1: -725585837
+    ParentPhysicalPath: 
+    PhysicalPath: SoundBanks\Default Work Unit.wwu
+    List:
+    - Guid: ccbbf219de6e1841aed397b3b51cd05e
+      ID: -1133058374
+      Name: main
+      Path: Default Work Unit\main
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: main
+        ObjectType: 7
+  basePath: Audio\GeneratedSoundBanks
+  callbackManagerBufferSize: 4
+  CurrentPluginConfig: 
+  defaultPoolSize: 4096
+  EventWwu:
+  - Guid: '{42341BD1-2D04-4C88-820D-976BEE81559A}'
+    m_lastTimePart2: -1999273179
+    m_lastTimePsrt1: 866491254
+    ParentPhysicalPath: 
+    PhysicalPath: Events\Default Work Unit.wwu
+    List:
+    - Guid: 446f7a94f9594d4ea5696d522c6d1da6
+      ID: 65769146
+      Name: Play_background_music
+      Path: Default Work Unit\Play_background_music
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: Play_background_music
+        ObjectType: 3
+      maxAttenuation: 0
+      maxDuration: 0
+      minDuration: 0
+    - Guid: e4d2700be49f6440bf25b299c616292f
+      ID: -1383508355
+      Name: Play_female_attack
+      Path: Default Work Unit\Play_female_attack
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: Play_female_attack
+        ObjectType: 3
+      maxAttenuation: 0
+      maxDuration: 0
+      minDuration: 0
+    - Guid: 035acb4a205a444c912da2bdc10b898d
+      ID: 2083981008
+      Name: Play_male_attack
+      Path: Default Work Unit\Play_male_attack
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: Play_male_attack
+        ObjectType: 3
+      maxAttenuation: 0
+      maxDuration: 0
+      minDuration: 0
+    - Guid: ef29d9b159b59345ab7029477f220a91
+      ID: -1109371293
+      Name: Play_parachute_flapping
+      Path: Default Work Unit\Play_parachute_flapping
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: Play_parachute_flapping
+        ObjectType: 3
+      maxAttenuation: 0
+      maxDuration: 0
+      minDuration: 0
+    - Guid: e32cdcdfc875b447b75052b580417fbd
+      ID: -1619255313
+      Name: Play_parachute_pull
+      Path: Default Work Unit\Play_parachute_pull
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: Play_parachute_pull
+        ObjectType: 3
+      maxAttenuation: 0
+      maxDuration: 0
+      minDuration: 0
+    - Guid: 4a296310216cc14e89c4abd1b1d81de9
+      ID: 1730162912
+      Name: Play_plane_crashing
+      Path: Default Work Unit\Play_plane_crashing
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: Play_plane_crashing
+        ObjectType: 3
+      maxAttenuation: 0
+      maxDuration: 0
+      minDuration: 0
+    - Guid: 12e3e9895128dd4dac9a343711a86a28
+      ID: -348055490
+      Name: Play_punch
+      Path: Default Work Unit\Play_punch
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: Play_punch
+        ObjectType: 3
+      maxAttenuation: 0
+      maxDuration: 0
+      minDuration: 0
+    - Guid: 865fcf5c94571443bc8169fce0dcf152
+      ID: 1591852251
+      Name: Play_water_splash
+      Path: Default Work Unit\Play_water_splash
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: Play_water_splash
+        ObjectType: 3
+      maxAttenuation: 0
+      maxDuration: 0
+      minDuration: 0
+  ExpandedItems:
+  - /Test
+  - /Test/Events
+  - /Test/Events/Default Work Unit
+  language: English(US)
+  lowerPoolSize: 2048
+  m_lastPopulateTimePart2: 0
+  m_lastPopulateTimePsrt1: 0
+  memoryCutoffThreshold: 0.95
+  preparePoolSize: 0
+  RtpcWwu:
+  - Guid: '{783B5246-B4FB-4CC9-8940-A7B4FB6575FF}'
+    m_lastTimePart2: -1999273394
+    m_lastTimePsrt1: -1565237680
+    ParentPhysicalPath: 
+    PhysicalPath: Game Parameters\Default Work Unit.wwu
+    List: []
+  StateWwu:
+  - Guid: '{6B87671E-7B3D-4644-80B6-E553636C6444}'
+    m_lastTimePart2: -1999273394
+    m_lastTimePsrt1: -1565367680
+    ParentPhysicalPath: 
+    PhysicalPath: States\Default Work Unit.wwu
+    List: []
+  streamingPoolSize: 1024
+  SwitchWwu:
+  - Guid: '{90F24AB9-42FC-46E0-8B49-59F2CBDEBCC9}'
+    m_lastTimePart2: -1999273394
+    m_lastTimePsrt1: -1565337680
+    ParentPhysicalPath: 
+    PhysicalPath: Switches\Default Work Unit.wwu
+    List: []
+  TriggerWwu:
+  - Guid: '{8F3C384C-977E-457B-92C0-C43D7B7E1734}'
+    m_lastTimePart2: -1999273394
+    m_lastTimePsrt1: -1565477680
+    ParentPhysicalPath: 
+    PhysicalPath: Triggers\Default Work Unit.wwu
+    List: []

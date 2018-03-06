@@ -33,11 +33,15 @@ public class Attack : MonoBehaviour
         {
             if (this.GetComponent<Grab>().IsHolding)
             {
+				if (controls.playerNum == 1)
+				{
+					AkSoundEngine.PostEvent ("Play_male_attack", gameObject);
+				}
 
-            }
-            else
-            {
-
+				if(controls.playerNum == 2) 
+				{
+					AkSoundEngine.PostEvent ("Play_female_attack", gameObject);
+				}
             }
         }
 
