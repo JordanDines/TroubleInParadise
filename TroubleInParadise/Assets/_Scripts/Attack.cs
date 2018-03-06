@@ -10,6 +10,8 @@ public class Attack : MonoBehaviour
     private GameObject player;
     float timer = 0.0f;
 
+    public float slapForce = 10.0f;
+
     public string playerTag = "Player";
     bool playerInRange = false; 
 
@@ -27,16 +29,29 @@ public class Attack : MonoBehaviour
 
     void attack()
     {
-        if (playerInRange)
+        if (!playerInRange)
         {
             if (this.GetComponent<Grab>().IsHolding)
             {
-                //knock parachute out of other player, nudge them back
-                this.GetComponent<Grab>().releaseOBJ();
 
-                if (player.GetComponent<Player>().HasParachute() == 1)
-                    player.GetComponent<Player>().Hit();
             }
+            else
+            {
+
+            }
+        }
+
+        if (playerInRange)
+        {
+            player.GetComponent<Rigidbody2D>().AddForce(new Vector2(player.GetComponent<Player>().GetDirection() * -1 * slapForce, 0));
+            if (this.GetComponent<Grab>().IsHolding)
+                {
+                    //knock parachute out of other player, nudge them back
+                    this.GetComponent<Grab>().releaseOBJ();
+
+                    if (player.GetComponent<Player>().HasParachute() == 1)
+                        player.GetComponent<Player>().Hit();
+                }
         }
     }
 
