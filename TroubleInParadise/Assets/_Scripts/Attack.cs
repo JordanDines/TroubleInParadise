@@ -43,7 +43,7 @@ public class Attack : MonoBehaviour
 
         if (playerInRange)
         {
-            player.GetComponent<Rigidbody2D>().AddForce(new Vector2(player.GetComponent<Player>().GetDirection() * -1 * slapForce, 0));
+            player.GetComponent<Rigidbody2D>().AddForce(new Vector2(GetComponent<Player>().GetDirection() * 1 * slapForce, 0));
             if (this.GetComponent<Grab>().IsHolding)
                 {
                     //knock parachute out of other player, nudge them back
@@ -56,15 +56,16 @@ public class Attack : MonoBehaviour
     }
 
     void OnTriggerEnter2D(Collider2D collision)
-    {
-        if(collision.gameObject.tag == playerTag && collision.gameObject != this)
-        {
-            player = collision.gameObject;
-            playerInRange = true;
-        }
-        else
-        {
-            playerInRange = false;
-        }
-    }
+	{
+		if (collision.gameObject.tag == playerTag && collision.gameObject != this) {
+			player = collision.gameObject;
+			playerInRange = true;
+		}
+	}
+
+	void OnTriggerExit2D(Collider2D collision) 
+	{
+			playerInRange = false;
+	}
 }
+

@@ -212,7 +212,6 @@ public class Player : MonoBehaviour
     public void Hit()
     {
         withParachute.SetActive(false);
-        withoutParachute.SetActive(true);
 
         parachuteRefrence.SetActive(true);
         parachuteRefrence.transform.position = new Vector3(this.transform.position.x, this.transform.position.y + 0.9f);
@@ -231,7 +230,6 @@ public class Player : MonoBehaviour
             parachuteRefrence.SetActive(false);
             hasParachute = 1;
             withParachute.SetActive(true);
-            withoutParachute.SetActive(false);
         }
 
         if (collision.gameObject.tag == "Player" && this.GetComponent<Grab>().IsHolding)

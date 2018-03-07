@@ -171,9 +171,9 @@ public class Runtime : MonoBehaviour
 		gameOverText.gameObject.SetActive (true);
 		//Once the game ends, it changes the text to the appropriate winner
 		if (playerThatWon == player1) {
-			gameOverText.text = gameOverText.text.Replace ("X", playerThatWon.ToString());
+			gameOverText.text = gameOverText.text.Replace ("Player X Won", "Player 1 Has Won!");
 		} else if (playerThatWon == player2) {
-					gameOverText.text = gameOverText.text.Replace ("X", playerThatWon.ToString());
+			gameOverText.text = gameOverText.text.Replace ("Player X Won", "Player 2 Has Won!");
 		} else if (playerThatWon == null) {
 			gameOverText.text = gameOverText.text.Replace ("Player X Won", drawnGameText).ToString();
 		}

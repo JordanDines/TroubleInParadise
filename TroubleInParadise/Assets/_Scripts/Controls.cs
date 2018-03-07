@@ -18,34 +18,37 @@ public class Controls : MonoBehaviour
     {
        if(playerNum == 1)
        {
-           left = KeyCode.A;
-           right = KeyCode.D;
-           up = KeyCode.W;
-           down = KeyCode.S;
+           
 
-           attack = KeyCode.Space;
+			if (XboxCtrlrInput.XCI.IsPluggedIn (1)) {
+				controller = XboxCtrlrInput.XboxController.First;
+				hasController = true;
+			} else {
+				left = KeyCode.A;
+				right = KeyCode.D;
+				up = KeyCode.W;
+				down = KeyCode.S;
 
-           if (XboxCtrlrInput.XCI.IsPluggedIn(1))
-           {
-               controller = XboxCtrlrInput.XboxController.First;
-               hasController = true;
-           }
+				attack = KeyCode.Space;
+			}
        }
 
        if(playerNum == 2)
         {
-            left = KeyCode.LeftArrow;
-            right = KeyCode.RightArrow;
-            up = KeyCode.UpArrow;
-            down = KeyCode.DownArrow;
+			
+			if (XboxCtrlrInput.XCI.IsPluggedIn (2)) {
+				controller = XboxCtrlrInput.XboxController.Second;
+				hasController = true;
+			} else {
+				left = KeyCode.LeftArrow;
+				right = KeyCode.RightArrow;
+				up = KeyCode.UpArrow;
+				down = KeyCode.DownArrow;
 
-            attack = KeyCode.RightControl;
+				attack = KeyCode.RightControl;
+			}
 
-            if (XboxCtrlrInput.XCI.IsPluggedIn(2))
-            {
-                controller = XboxCtrlrInput.XboxController.Second;
-                hasController = true;
-            }
+
         }
     }
 }
